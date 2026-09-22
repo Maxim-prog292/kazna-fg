@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Интерактивный музейный экран о работе Тверской казённой палаты в XVIII веке."
+    />
+    <meta name="theme-color" content="#111813" />
+    <title>Тверская казённая палата — 1776</title>
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23131c16'/%3E%3Cpath d='M13 20c7-3 13-2 19 2 6-4 12-5 19-2v28c-7-3-13-2-19 2-6-4-12-5-19-2V20Z' fill='%23ead8ae' stroke='%23c6a25b' stroke-width='2'/%3E%3Cpath d='M32 22v28' stroke='%23a67f3e' stroke-width='2'/%3E%3Ccircle cx='44' cy='42' r='7' fill='%239e332c'/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./exhibit-ui.css" />
+  </head>
+  <body>
+    <main class="viewport" aria-labelledby="intro-title">
+      <section class="stage">
+        <div class="ambient-grain" aria-hidden="true"></div>
+
+        <header class="intro">
+          <div class="intro__eyebrow">
+            <span class="intro__line" aria-hidden="true"></span>
+            <span>Тверская казённая палата</span>
+            <span class="intro__year">1776</span>
+          </div>
+          <h1 id="intro-title">Деньги региона: как это работало 250 лет назад</h1>
+          <p>
+            <strong>28 января 1776 год.</strong> Представьте: вы — управляющий Тверской
+            казенной палатой. В ваших руках налоги, леса, заводы и торговля. Нажмите
+            на любую кнопку — узнайте, как 250 лет назад работали деньги региона, и
+            чему этот опыт учит нас сегодня.
+          </p>
+        </header>
+
+        <div class="ledger" aria-hidden="true">
+          <div class="ledger__halo"></div>
+          <img
+            class="ledger__image"
+            src="./assets/tver-ledger.png"
+            alt=""
+            draggable="false"
+          />
+          <div class="ledger__caption">
+            <span>Архив управляющего</span>
+            <span class="ledger__caption-rule"></span>
+            <span>Тверь</span>
+          </div>
+        </div>
+
+        <nav class="topics" aria-label="Разделы казённой палаты">
+          <button class="topic topic--tax" type="button" data-topic="tax" aria-haspopup="dialog">
+            <span class="topic__number">01</span>
+            <span class="topic__icon" aria-hidden="true">
+              <svg viewBox="0 0 72 72"><use href="#icon-tax"></use></svg>
+            </span>
+            <span class="topic__text">
+              <span class="topic__title">Податное дело</span>
+              <span class="topic__hint">Открыть дело</span>
+            </span>
+            <span class="topic__arrow" aria-hidden="true">↗</span>
+          </button>
+
+          <button class="topic topic--property" type="button" data-topic="property" aria-haspopup="dialog">
+            <span class="topic__number">02</span>
+            <span class="topic__icon" aria-hidden="true">
+              <svg viewBox="0 0 72 72"><use href="#icon-property"></use></svg>
+            </span>
+            <span class="topic__text">
+              <span class="topic__title">Госсобственность</span>
+              <span class="topic__hint">Открыть дело</span>
+            </span>
+            <span class="topic__arrow" aria-hidden="true">↗</span>
+          </button>
+
+          <button class="topic topic--monopoly" type="button" data-topic="monopoly" aria-haspopup="dialog">
+            <span class="topic__number">03</span>
+            <span class="topic__icon" aria-hidden="true">
+              <svg viewBox="0 0 72 72"><use href="#icon-monopoly"></use></svg>
+            </span>
+            <span class="topic__text">
+              <span class="topic__title">Монополии</span>
+              <span class="topic__hint">Открыть дело</span>
+            </span>
+            <span class="topic__arrow" aria-hidden="true">↗</span>
+          </button>
+
+          <button class="topic topic--industry" type="button" data-topic="industry" aria-haspopup="dialog">
+            <span class="topic__number">04</span>
+            <span class="topic__icon" aria-hidden="true">
+              <svg viewBox="0 0 72 72"><use href="#icon-industry"></use></svg>
+            </span>
+            <span class="topic__text">
+              <span class="topic__title">Промышленность</span>
+              <span class="topic__hint">Открыть дело</span>
+            </span>
+            <span class="topic__arrow" aria-hidden="true">↗</span>
+          </button>
+        </nav>
+
+        <p class="gesture-hint">
+          <span class="gesture-hint__dot" aria-hidden="true"></span>
+          Выберите одно из четырёх направлений
+        </p>
+
+        <div class="sheet-layer" id="sheet-layer" hidden>
+          <div class="sheet-backdrop" data-close-sheet></div>
+          <article
+            class="sheet"
+            id="detail-sheet"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="sheet-title"
+            aria-describedby="sheet-main"
+            tabindex="-1"
+          >
+            <div class="sheet__grabber" aria-hidden="true"><span></span></div>
+            <button class="sheet__close" type="button" data-close-sheet aria-label="Закрыть карточку">
+              <span aria-hidden="true"></span>
+            </button>
+
+            <div class="sheet__header">
+              <div class="sheet__icon" id="sheet-icon" aria-hidden="true"></div>
+              <div>
+                <div class="sheet__kicker">
+                  <span id="sheet-number"></span>
+                  <span>Дело казённой палаты</span>
+                </div>
+                <h2 id="sheet-title"></h2>
+              </div>
+            </div>
+
+            <div class="sheet__content">
+              <section class="sheet__main" aria-labelledby="main-label">
+                <div class="section-label" id="main-label">Как это работало</div>
+                <p id="sheet-main"></p>
+              </section>
+
+              <section class="fact fact--today" aria-labelledby="today-label">
+                <div class="fact__mark" aria-hidden="true">
+                  <svg viewBox="0 0 40 40"><use href="#icon-today"></use></svg>
+                </div>
+                <div>
+                  <h3 id="today-label">Связь с сегодня</h3>
+                  <p id="sheet-today"></p>
+                </div>
+              </section>
+
+              <section class="fact fact--tver" aria-labelledby="tver-label">
+                <div class="fact__mark" aria-hidden="true">
+                  <svg viewBox="0 0 40 40"><use href="#icon-pin"></use></svg>
+                </div>
+                <div>
+                  <h3 id="tver-label">Якорь на Тверь</h3>
+                  <blockquote id="sheet-tver"></blockquote>
+                </div>
+              </section>
+            </div>
+          </article>
+        </div>
+
+        <svg class="svg-defs" aria-hidden="true" focusable="false">
+          <defs>
+            <symbol id="icon-tax" viewBox="0 0 72 72">
+              <path d="M12 52.5h34c3.5 0 6-2.5 6-6V21.3c0-2.8-2.2-5-5-5H21.2c-2.9 0-5.2 2.3-5.2 5.2v24" />
+              <path d="M18 48h28c1.8 0 3.3-1.5 3.3-3.3M16 23h26M18 31h20" />
+              <path d="M31.5 49C42 34.8 51.6 23.7 63 13c-2.4 10.4-7.2 18.5-16.7 25.7l-6.8.5-1.5 6.2" />
+              <path d="M50.4 32.8l-5.2-5.1M56 26l-5-4.8" />
+            </symbol>
+
+            <symbol id="icon-property" viewBox="0 0 72 72">
+              <path d="M16 37c-4.7-2.5-7-6-7-10.5 0-5.7 4.2-10.5 10-11.2 2.8-5.3 7-8 12.5-8 7.7 0 13.2 5.3 14 12.5 4.4 1.6 7.2 5.2 7.2 9.6 0 3.8-1.7 6.8-5.2 9" />
+              <path d="M30.5 20v35M22 30l8.5 8.5L40 27M19 55h25" />
+              <path d="M38 48h27M40 48c3.5-5.4 7.5-8.2 12-8.2S60.8 42.6 64 48M42 48v9M62 48v9M37 58h29" />
+            </symbol>
+
+            <symbol id="icon-monopoly" viewBox="0 0 72 72">
+              <path d="M10 32h23l-2.4 23H12.4L10 32ZM13 27h17M16.5 20.5h10l2 6.5h-14l2-6.5Z" />
+              <path d="M41 18h14v10c0 3.6 6 5.1 6 10.8V58H36V38.8c0-5.7 6-7.2 6-10.8V18Z" />
+              <path d="M42 18v-5h13v5M39 40h19v10H39zM44 45h9" />
+              <circle cx="21.5" cy="40.5" r="2" />
+              <circle cx="17.5" cy="47" r="1.5" />
+              <circle cx="25.5" cy="48" r="1.5" />
+            </symbol>
+
+            <symbol id="icon-industry" viewBox="0 0 72 72">
+              <path d="M26 15v7.5M26 49.5V57M9 36h7.5M35.5 36H43M14 24l6 4M32 44l6 4M14 48l6-4M32 28l6-4" />
+              <circle cx="26" cy="36" r="14" />
+              <circle cx="26" cy="36" r="5" />
+              <path d="M42 30h19v30H37V45M48 30V18h7v12M43 38h18M43 46h18M43 54h18" />
+              <path d="M48 38v22M55 38v22" />
+            </symbol>
+
+            <symbol id="icon-today" viewBox="0 0 40 40">
+              <circle cx="20" cy="20" r="15" />
+              <path d="M20 12v9l6 4M20 5v4M35 20h-4" />
+            </symbol>
+
+            <symbol id="icon-pin" viewBox="0 0 40 40">
+              <path d="M31 17.2C31 25 20 34 20 34S9 25 9 17.2a11 11 0 1 1 22 0Z" />
+              <circle cx="20" cy="17" r="4" />
+            </symbol>
+          </defs>
+        </svg>
+      </section>
+    </main>
+
+    <script src="./exhibit-ui.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>
